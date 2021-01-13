@@ -13,6 +13,7 @@
 		28A3489125AF51E9004DBC19 /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A3489025AF51E9004DBC19 /* Bank.swift */; };
 		28A3489625AF51EE004DBC19 /* Banker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A3489525AF51EE004DBC19 /* Banker.swift */; };
 		28A3489B25AF51F5004DBC19 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A3489A25AF51F5004DBC19 /* Customer.swift */; };
+		28A348A125AF5742004DBC19 /* StackWithButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A348A025AF5742004DBC19 /* StackWithButtons.swift */; };
 		C7694E3B259C3E9F0053667F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7694E3A259C3E9F0053667F /* AppDelegate.swift */; };
 		C7694E3D259C3E9F0053667F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7694E3C259C3E9F0053667F /* SceneDelegate.swift */; };
 		C7694E3F259C3E9F0053667F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7694E3E259C3E9F0053667F /* ViewController.swift */; };
@@ -47,6 +48,7 @@
 		28A3489025AF51E9004DBC19 /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
 		28A3489525AF51EE004DBC19 /* Banker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banker.swift; sourceTree = "<group>"; };
 		28A3489A25AF51F5004DBC19 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		28A348A025AF5742004DBC19 /* StackWithButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackWithButtons.swift; sourceTree = "<group>"; };
 		C7694E37259C3E9F0053667F /* BankManagerUIApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BankManagerUIApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7694E3A259C3E9F0053667F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7694E3C259C3E9F0053667F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		28A3489F25AF5720004DBC19 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				28A348A025AF5742004DBC19 /* StackWithButtons.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		C7694E2E259C3E9F0053667F = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +148,7 @@
 		C7694E39259C3E9F0053667F /* BankManagerUIApp */ = {
 			isa = PBXGroup;
 			children = (
+				28A3489F25AF5720004DBC19 /* CustomView */,
 				28A3487D25AF517D004DBC19 /* Extension */,
 				28A3487C25AF517A004DBC19 /* Data */,
 				28A3487B25AF5170004DBC19 /* Error */,
@@ -306,6 +317,7 @@
 				28A3488C25AF51BC004DBC19 /* BankError.swift in Sources */,
 				C7694E3B259C3E9F0053667F /* AppDelegate.swift in Sources */,
 				28A3487F25AF518B004DBC19 /* NotificationExtension.swift in Sources */,
+				28A348A125AF5742004DBC19 /* StackWithButtons.swift in Sources */,
 				28A3489B25AF51F5004DBC19 /* Customer.swift in Sources */,
 				C7694E3D259C3E9F0053667F /* SceneDelegate.swift in Sources */,
 				28A3489125AF51E9004DBC19 /* Bank.swift in Sources */,
