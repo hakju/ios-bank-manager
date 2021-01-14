@@ -19,15 +19,15 @@ class ViewController: UIViewController {
         let stackView = StackWithButtons(touchAdd: addAction, touchReset: resetAction)
         return stackView
     }()
-    private lazy var judgeCustomersRow: UIView = {
+    private lazy var judgeCustomersRow: BankRowView = {
         let view = BankRowView(rowTitle: "심사중", rowColor: .systemOrange)
         return view
     }()
-    private lazy var workingCustomersRow: UIView = {
+    private lazy var workingCustomersRow: BankRowView = {
         let view = BankRowView(rowTitle: "업무중", rowColor: .systemGreen)
         return view
     }()
-    private lazy var waitingCustomersRow: UIView = {
+    private lazy var waitingCustomersRow: BankRowView = {
         let view = BankRowView(rowTitle: "대기중", rowColor: .systemPurple)
         return view
     }()
@@ -45,6 +45,8 @@ class ViewController: UIViewController {
         setUpButtons()
         setUpTimerLabel()
         setUpBankCustomersRow()
+        judgeCustomersRow.addSubviewInScroll(CustomerView(customer: try! Customer(waitingNumber: 1)))
+//        judgeCustomersRow.addSubviewInScroll(CustomerView(customer: try! Customer(waitingNumber: 2)))
     }
     
     // MARK: - set up UI
