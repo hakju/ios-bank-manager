@@ -6,9 +6,18 @@
 
 import Foundation
 
-// MARK: - dummy
+private enum Code {
+    static let open = 1
+    static let close = 2
+}
+private enum Information {
+    static let bankersNumber = 3
+    static let customerStartRandomNumber = 10
+    static let customerEndRandomNumber = 30
+}
+private let startMessage = "1 : 은행 개점\n2 : 종료\n입력 : "
 private var isTerminate = false
-private var bank = Bank(bankersNumbers: ConsoleBankManager.Information.bankersNumber)
+private var bank = Bank(bankersNumbers: Information.bankersNumber)
 
 // MARK: - show error
 private func showError(_ error: Error) {
@@ -26,7 +35,7 @@ private func showError(_ error: Error) {
 
 private func startManage() {
     while !isTerminate {
-        print(ConsoleBankManager.startMessage, terminator: "")
+        print(startMessage, terminator: "")
         guard let inputText = readLine() else {
             showError(InputError.input)
             continue
@@ -35,13 +44,13 @@ private func startManage() {
             showError(InputError.number)
             continue
         }
-        if inputCode == ConsoleBankManager.Code.close {
+        if inputCode == Code.close {
             isTerminate = true
             break
         }
-        if inputCode == ConsoleBankManager.Code.open {
+        if inputCode == Code.open {
             do {
-                let randomCustomersNumber = Int.random(in: ConsoleBankManager.Information.customerStartRandomNumber...ConsoleBankManager.Information.customerEndRandomNumber)
+                let randomCustomersNumber = Int.random(in: Information.customerStartRandomNumber...Information.customerEndRandomNumber)
                 try bank.open(customersNumber: randomCustomersNumber)
             } catch {
                 showError(error)
