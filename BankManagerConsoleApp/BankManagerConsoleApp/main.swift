@@ -14,6 +14,7 @@ private enum Information {
     static let bankersNumber = 3
     static let customerStartRandomNumber = 10
     static let customerEndRandomNumber = 30
+    static let startWaitingNumber = 1
 }
 private let startMessage = "1 : 은행 개점\n2 : 종료\n입력 : "
 private var isTerminate = false
@@ -50,8 +51,8 @@ private func startManage() {
         }
         if inputCode == Code.open {
             do {
-                let randomCustomersNumber = Int.random(in: Information.customerStartRandomNumber...Information.customerEndRandomNumber)
-                try bank.open(customersNumber: randomCustomersNumber)
+                let endWaitingNumber = Int.random(in: Information.customerStartRandomNumber...Information.customerEndRandomNumber)
+                try bank.open(startWaitingNumber: Information.startWaitingNumber, endWaitingNumber: Information.startWaitingNumber + endWaitingNumber)
             } catch {
                 showError(error)
             }
