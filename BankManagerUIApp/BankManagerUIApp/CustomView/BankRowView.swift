@@ -8,6 +8,12 @@
 import UIKit
 
 class BankRowView: UIView {
+    enum BankRowType {
+        case judging
+        case working
+        case waiting
+    }
+    
     private var rowTitle: String? = nil
     private var rowColor: UIColor? = nil
     private lazy var customersStackView: UIStackView = {
@@ -28,10 +34,10 @@ class BankRowView: UIView {
         setup()
     }
     
-    init(rowTitle: String, rowColor: UIColor) {
+    init(_ type: BankRowType) {
         super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize.zero))
-        self.rowTitle = rowTitle
-        self.rowColor = rowColor
+        self.rowTitle = type.description
+        self.rowColor = type.color
         setup()
     }
     
@@ -78,5 +84,29 @@ class BankRowView: UIView {
     
     func addSubviewInScroll(_ view: UIView) {
         customersStackView.addArrangedSubview(view)
+    }
+}
+
+extension BankRowView.BankRowType: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .judging:
+            return "심사중"
+        case .working:
+            return "업무중"
+        case .waiting:
+            return "대기중"
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .judging:
+            return .systemOrange
+        case .working:
+            return .systemGreen
+        case .waiting:
+            return .systemPurple
+        }
     }
 }
