@@ -60,7 +60,6 @@ class ViewController: UIViewController {
         setUpButtons()
         setUpTimerLabel()
         setUpBankCustomersRow()
-//        judgeCustomersRow.addSubviewInScroll(CustomerView(customer: try! Customer(waitingNumber: 2)))
     }
     
     private func setUpNotification() {
