@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let finishBankerTask = Notification.Name("finishBankerTask")
+    static let finishAddCustomers = Notification.Name("finishAddCustomers")
 }
