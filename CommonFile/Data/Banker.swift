@@ -21,14 +21,21 @@ class Banker {
     
     func startWork(customer: Customer, group: DispatchGroup) {
         group.enter()
+        #if os(iOS)
+            // ... iOS 용 코드 ...
+        #elseif os(OSX)
         print(String(format: startTaskMessgae, customer.waitingNumber, customer.grade.description, customer.taskType.description))
+        #endif
         workingQueue.asyncAfter(deadline: .now() + customer.taskType.time) {
             self.finishWork(customer: customer, group: group)
         }
     }
     
     private func finishWork(customer: Customer, group: DispatchGroup) {
+        #if os(iOS)
+        #elseif os(OSX)
         print(String(format: endTaskMessgae, customer.waitingNumber, customer.grade.description, customer.taskType.description))
+        #endif
         NotificationCenter.default.post(name: .finishBankerTask, object: self.bankerNumber)
         group.leave()
     }

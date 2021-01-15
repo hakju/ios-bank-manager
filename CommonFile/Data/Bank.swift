@@ -93,7 +93,10 @@ class Bank {
         }
         let closeTime = Date()
         let totalTime = TimeInterval(closeTime.timeIntervalSince(open))
+        #if os(iOS)
+        #elseif os(OSX)
         print(String(format: closeMessage, self.totalProcessedCustomersNumber, totalTime))
+        #endif
     }
     
 }
