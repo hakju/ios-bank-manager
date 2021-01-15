@@ -8,10 +8,26 @@
 import UIKit
 
 class StackWithButtons: UIStackView {
-    private let addButtonTitle = "고객 10명 추가"
-    private let resetButtonTitle = "초기화"
-    private var touchAddAction: ((_ sender: UIButton) -> ())?
-    private var touchResetAction: ((_ sender: UIButton) -> ())?
+    enum ButtonText {
+        static let add = "고객 10명 추가"
+        static let reset = "초기화"
+    }
+    lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(ButtonText.add, for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.isUserInteractionEnabled = true
+        return button
+    }()
+    lazy var resetButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(ButtonText.reset, for: .normal)
+        button.setTitleColor(.systemRed, for: .normal)
+        button.isUserInteractionEnabled = true
+        return button
+    }()
     
     // MARK: - init func
     override init(frame: CGRect) {
@@ -24,10 +40,8 @@ class StackWithButtons: UIStackView {
         setup()
     }
     
-    init(touchAdd: @escaping ((_ sender: UIButton) -> Void), touchReset: @escaping ((_ sender: UIButton) -> Void)) {
+    init() {
         super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize.zero))
-        touchAddAction = touchAdd
-        touchResetAction = touchReset
         setup()
     }
     
@@ -36,34 +50,7 @@ class StackWithButtons: UIStackView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.distribution = .fillEqually
         self.axis = .horizontal
-        
-        let addButton = UIButton()
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.setTitle(addButtonTitle, for: .normal)
-        addButton.setTitleColor(.systemBlue, for: .normal)
-        addButton.isUserInteractionEnabled = true
-        addButton.addTarget(self, action: #selector(touchAdd(_:)), for: .touchUpInside)
         self.addArrangedSubview(addButton)
-        
-        let resetButton = UIButton()
-        resetButton.translatesAutoresizingMaskIntoConstraints = false
-        resetButton.setTitle(resetButtonTitle, for: .normal)
-        resetButton.setTitleColor(.systemRed, for: .normal)
-        resetButton.isUserInteractionEnabled = true
-        resetButton.addTarget(self, action: #selector(touchReset(_:)), for: .touchUpInside)
         self.addArrangedSubview(resetButton)
-    }
-    
-    // MARK: - button target action
-    @objc func touchAdd(_ sender: UIButton) {
-        if let touchAction = self.touchAddAction {
-            touchAction(sender)
-        }
-    }
-    
-    @objc func touchReset(_ sender: UIButton) {
-        if let touchAction = self.touchResetAction {
-            touchAction(sender)
-        }
     }
 }
