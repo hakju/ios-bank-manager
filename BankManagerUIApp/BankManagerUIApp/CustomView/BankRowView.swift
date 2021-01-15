@@ -82,8 +82,22 @@ class BankRowView: UIView {
         customersStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
     
-    func addSubviewInScroll(_ view: UIView) {
+    func addCustomerView(_ view: UIView) {
         customersStackView.addArrangedSubview(view)
+    }
+    
+    func removeAllSubView() {
+        let removedSubViews = customersStackView.arrangedSubviews.reduce([]) { (sum, next) -> [UIView] in
+            customersStackView.removeArrangedSubview(next)
+            return sum + [next]
+        }
+        removedSubViews.forEach({ $0.removeFromSuperview() })
+    }
+    
+    func addCustomerViews(_ views: [UIView]) {
+        for view in views {
+            customersStackView.addArrangedSubview(view)
+        }
     }
 }
 
