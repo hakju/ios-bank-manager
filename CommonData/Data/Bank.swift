@@ -8,7 +8,7 @@
 import Foundation
 
 class Bank {
-    private var customers: [Customer] = []
+    private(set) var customers: [Customer] = []
     private var bankers: [Banker] = []
     private var totalProcessedCustomersNumber = 0
     private let bankGroup: DispatchGroup = DispatchGroup()
@@ -40,12 +40,14 @@ class Bank {
         }
     }
     
-    func addCustomers(_ customerNumber: Int) throws {
-        for number in 1...customerNumber {
+    func addCustomers(startWaitingNumber: Int, endWaitingNumber: Int) throws {
+        for number in startWaitingNumber..<endWaitingNumber {
             customers.append(try Customer(waitingNumber: number))
         }
-        
         sortCustomers()
+        #if os(iOS)
+        NotificationCenter.default.post(name: .finishAddCustomers, object: nil)
+        #endif
     }
     
     private func sortCustomers() {
