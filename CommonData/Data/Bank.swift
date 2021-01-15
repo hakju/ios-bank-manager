@@ -8,16 +8,6 @@
 import Foundation
 
 class Bank {
-    enum Information {
-        static let bankersNumber = 3
-        static let customerStartRandomNumber = 10
-        static let customerEndRandomNumber = 30
-    }
-    enum Code {
-        static let open = 1
-        static let close = 2
-    }
-    
     private var customers: [Customer] = []
     private var bankers: [Banker] = []
     private var openTime: Date?
@@ -27,8 +17,8 @@ class Bank {
     private let customerQueue = DispatchQueue.init(label: "customer")
     
     // MARK: - init func
-    init() {
-        for number in 1...Information.bankersNumber {
+    init(bankersNumbers: Int) {
+        for number in 1...bankersNumbers {
             bankers.append(Banker(number))
         }
         setUpNotification()
@@ -67,10 +57,9 @@ class Bank {
         })
     }
     
-    func open() throws {
+    func open(customersNumber: Int) throws {
         resetData()
-        let customerNumber = Int.random(in: Information.customerStartRandomNumber...Information.customerEndRandomNumber)
-        try initCustomers(customerNumber)
+        try initCustomers(customersNumber)
         openTime = Date()
         try work()
     }
