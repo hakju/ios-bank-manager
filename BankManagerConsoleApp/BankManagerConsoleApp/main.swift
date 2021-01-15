@@ -7,9 +7,8 @@
 import Foundation
 
 // MARK: - dummy
-private let startMessage = "1 : 은행 개점\n2 : 종료\n입력 : "
 private var isTerminate = false
-private var bank = Bank()
+private var bank = Bank(bankersNumbers: ConsoleBankManager.Information.bankersNumber)
 
 // MARK: - show error
 private func showError(_ error: Error) {
@@ -27,7 +26,7 @@ private func showError(_ error: Error) {
 
 private func startManage() {
     while !isTerminate {
-        print(startMessage, terminator: "")
+        print(ConsoleBankManager.startMessage, terminator: "")
         guard let inputText = readLine() else {
             showError(InputError.input)
             continue
@@ -36,13 +35,14 @@ private func startManage() {
             showError(InputError.number)
             continue
         }
-        if inputCode == Bank.Code.close {
+        if inputCode == ConsoleBankManager.Code.close {
             isTerminate = true
             break
         }
-        if inputCode == Bank.Code.open {
+        if inputCode == ConsoleBankManager.Code.open {
             do {
-                try bank.open()
+                let randomCustomersNumber = Int.random(in: ConsoleBankManager.Information.customerStartRandomNumber...ConsoleBankManager.Information.customerEndRandomNumber)
+                try bank.open(customersNumber: randomCustomersNumber)
             } catch {
                 showError(error)
             }
