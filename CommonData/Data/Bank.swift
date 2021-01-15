@@ -10,11 +10,11 @@ import Foundation
 class Bank {
     private var customers: [Customer] = []
     private var bankers: [Banker] = []
-    private var openTime: Date?
     private var totalProcessedCustomersNumber = 0
     private let bankGroup: DispatchGroup = DispatchGroup()
     private let closeMessage = "업무가 마감되었습니다. 오늘 업무를 처리한 고객은 총 %d명이며, 총 업무시간은 %.2f초입니다."
     private let customerQueue = DispatchQueue.init(label: "customer")
+    var openTime: Date?
     
     // MARK: - init func
     init(bankersNumbers: Int) {
@@ -40,7 +40,7 @@ class Bank {
         }
     }
     
-    private func initCustomers(_ customerNumber: Int) throws {
+    func addCustomers(_ customerNumber: Int) throws {
         for number in 1...customerNumber {
             customers.append(try Customer(waitingNumber: number))
         }
@@ -57,19 +57,12 @@ class Bank {
         })
     }
     
-    func open(customersNumber: Int) throws {
-        resetData()
-        try initCustomers(customersNumber)
-        openTime = Date()
-        try work()
-    }
-    
-    private func resetData() {
+    func resetData() {
         customers.removeAll()
         totalProcessedCustomersNumber = 0
     }
     
-    private func work() throws {
+    func work() throws {
         for banker in self.bankers {
             if self.customers.isEmpty {
                 break
