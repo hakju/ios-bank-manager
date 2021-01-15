@@ -8,9 +8,9 @@
 import Foundation
 
 extension Bank {
-    func open(customersNumber: Int) throws {
+    func open(startWaitingNumber: Int, endWaitingNumber: Int) throws {
         resetData()
-        try addCustomers(customersNumber)
+        try addCustomers(startWaitingNumber: startWaitingNumber, endWaitingNumber: endWaitingNumber)
         try work()
     }
 }
