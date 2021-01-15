@@ -31,10 +31,10 @@ class Bank {
         for number in 1...Information.bankersNumber {
             bankers.append(Banker(number))
         }
-        setNotification()
+        setUpNotification()
     }
     
-    private func setNotification() {
+    private func setUpNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(assignedCustomerToBanker(_:)), name: .finishBankerTask, object: nil)
     }
     
