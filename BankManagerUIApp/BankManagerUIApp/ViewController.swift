@@ -22,8 +22,8 @@ class ViewController: UIViewController {
         label.text = "업무시간 - 00:00:000"
         return label
     }()
-    private lazy var buttonStack: UIStackView = {
-        let stackView = StackWithButtons(touchAdd: addAction, touchReset: resetAction)
+    private lazy var buttonStack: StackWithButtons = {
+        let stackView = StackWithButtons()
         return stackView
     }()
     private lazy var judgeCustomersRow: BankRowView = {
@@ -38,21 +38,6 @@ class ViewController: UIViewController {
         let view = BankRowView(.waiting)
         return view
     }()
-    
-    // MARK: button closures
-    private lazy var addAction: ((_ sender: UIButton) -> Void) = {_ in
-        do {
-            let endWaitingNumber = self.startWaitingNumber + Information.addCustomersCount
-            try self.bank.addCustomers(startWaitingNumber: self.startWaitingNumber, endWaitingNumber: endWaitingNumber)
-            self.startWaitingNumber = endWaitingNumber
-        } catch {
-            // TODO: add okAction -> reset
-            self.showError(error, okAction: nil)
-        }
-    }
-    private let resetAction: ((_ sender: UIButton) -> Void) = {_ in
-        print("reset")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,10 +62,27 @@ class ViewController: UIViewController {
     // MARK: - set up UI
     private func setUpButtons() {
         self.view.addSubview(buttonStack)
+        buttonStack.addButton.addTarget(self, action: #selector(touchUpAddButton(_:)), for: .touchUpInside)
+        buttonStack.resetButton.addTarget(self, action: #selector(touchUpResetButton(_:)), for: .touchUpInside)
         buttonStack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         buttonStack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         buttonStack.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         buttonStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    @objc func touchUpAddButton(_ sender: UIButton) {
+        do {
+            let endWaitingNumber = self.startWaitingNumber + Information.addCustomersCount
+            try self.bank.addCustomers(startWaitingNumber: self.startWaitingNumber, endWaitingNumber: endWaitingNumber)
+            self.startWaitingNumber = endWaitingNumber
+        } catch {
+            // TODO: add okAction -> reset
+            self.showError(error, okAction: nil)
+        }
+    }
+    
+    @objc func touchUpResetButton(_ sender: UIButton) {
+        print("reset")
     }
     
     private func setUpTimerLabel() {
