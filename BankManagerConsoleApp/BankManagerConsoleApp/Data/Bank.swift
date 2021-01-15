@@ -93,11 +93,11 @@ class Bank {
     }
     
     private func close() throws {
-        guard let open = self.openTime else {
+        guard let openTime = self.openTime else {
             throw BankError.close
         }
         let closeTime = Date()
-        let totalTime = TimeInterval(closeTime.timeIntervalSince(open))
+        let totalTime = TimeInterval(closeTime.timeIntervalSince(openTime))
         print(String(format: closeMessage, self.totalProcessedCustomersNumber, totalTime))
     }
     
