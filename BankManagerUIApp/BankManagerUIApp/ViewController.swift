@@ -7,6 +7,12 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private enum Information {
+        static let bankersNumber = 3
+        static let addCustomersCount = 10
+    }
+    private var bank = Bank(bankersNumbers: Information.bankersNumber)
+    
     // MARK: UI property
     private lazy var timerLabel: UILabel = {
         let label = UILabel()
@@ -20,21 +26,25 @@ class ViewController: UIViewController {
         return stackView
     }()
     private lazy var judgeCustomersRow: BankRowView = {
-        let view = BankRowView(rowTitle: "심사중", rowColor: .systemOrange)
+        let view =  BankRowView(.judging)
         return view
     }()
     private lazy var workingCustomersRow: BankRowView = {
-        let view = BankRowView(rowTitle: "업무중", rowColor: .systemGreen)
+        let view = BankRowView(.working)
         return view
     }()
     private lazy var waitingCustomersRow: BankRowView = {
-        let view = BankRowView(rowTitle: "대기중", rowColor: .systemPurple)
+        let view = BankRowView(.waiting)
         return view
     }()
     
     // MARK: button closures
-    private let addAction: ((_ sender: UIButton) -> Void) = {_ in
-        print("add")
+    private lazy var addAction: ((_ sender: UIButton) -> Void) = {_ in
+        do {
+            try self.bank.addCustomers(Information.addCustomersCount)
+        } catch {
+            
+        }
     }
     private let resetAction: ((_ sender: UIButton) -> Void) = {_ in
         print("reset")
@@ -45,7 +55,6 @@ class ViewController: UIViewController {
         setUpButtons()
         setUpTimerLabel()
         setUpBankCustomersRow()
-        judgeCustomersRow.addSubviewInScroll(CustomerView(customer: try! Customer(waitingNumber: 1)))
 //        judgeCustomersRow.addSubviewInScroll(CustomerView(customer: try! Customer(waitingNumber: 2)))
     }
     
