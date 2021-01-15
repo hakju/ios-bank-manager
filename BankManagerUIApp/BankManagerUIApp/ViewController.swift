@@ -12,6 +12,7 @@ class ViewController: UIViewController {
         static let addCustomersCount = 10
     }
     private var bank = Bank(bankersNumbers: Information.bankersNumber)
+    private var startWaitingNumber = 1
     
     // MARK: UI property
     private lazy var timerLabel: UILabel = {
@@ -41,7 +42,9 @@ class ViewController: UIViewController {
     // MARK: button closures
     private lazy var addAction: ((_ sender: UIButton) -> Void) = {_ in
         do {
-            try self.bank.addCustomers(Information.addCustomersCount)
+            let endWaitingNumber = self.startWaitingNumber + Information.addCustomersCount
+            try self.bank.addCustomers(startWaitingNumber: self.startWaitingNumber, endWaitingNumber: endWaitingNumber)
+            self.startWaitingNumber = endWaitingNumber
         } catch {
             // TODO: add okAction -> reset
             self.showError(error, okAction: nil)
@@ -53,10 +56,23 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpNotification()
         setUpButtons()
         setUpTimerLabel()
         setUpBankCustomersRow()
 //        judgeCustomersRow.addSubviewInScroll(CustomerView(customer: try! Customer(waitingNumber: 2)))
+    }
+    
+    private func setUpNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUIWaitingRow), name: .finishAddCustomers, object: nil)
+    }
+    
+    @objc func updateUIWaitingRow() {
+        waitingCustomersRow.removeAllSubView()
+        let customerViews = bank.customers.map { customer -> UIView in
+            return CustomerView(customer: customer)
+        }
+        waitingCustomersRow.addCustomerViews(customerViews)
     }
     
     // MARK: - set up UI
