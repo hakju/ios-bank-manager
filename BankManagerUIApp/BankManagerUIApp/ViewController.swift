@@ -43,7 +43,8 @@ class ViewController: UIViewController {
         do {
             try self.bank.addCustomers(Information.addCustomersCount)
         } catch {
-            
+            // TODO: add okAction -> reset
+            self.showError(error, okAction: nil)
         }
     }
     private let resetAction: ((_ sender: UIButton) -> Void) = {_ in
